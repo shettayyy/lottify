@@ -17,6 +17,9 @@
     "sourceType": "module"
   },
   "rules": {
+    // JavaScript
+    "no-use-before-define": "error",
+
     // Imports
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",

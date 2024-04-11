@@ -39,9 +39,18 @@ Lottify assists with providing the backend services required to list, search, pr
 
 ## Linting 🧹
 
+We are using the following tools for linting:
+
 - [ESLint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
 - [Husky](https://typicode.github.io/husky/#/)
 - [Lint-Staged](https://www.npmjs.com/package/lint-staged)
 - [Commitlint](https://commitlint.js.org/#/)
 - [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+
+## Environment Variables 🌍
+
+We are using the following packages for managing environment variables:
+
+- [Dotenv](https://www.npmjs.com/package/dotenv)
+- [Envalid](https://www.npmjs.com/package/envalid)
