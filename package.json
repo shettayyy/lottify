@@ -68,12 +68,10 @@
     "*.{ts,tsx}": [
       "npm run lint",
       "npm run type-check",
-      "npm run format",
-      "git add"
+      "npm run format"
     ],
     "*.{json,md}": [
-      "npm run format",
-      "git add"
+      "npm run format"
     ]
   }
 }
