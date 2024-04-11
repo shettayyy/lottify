@@ -8,6 +8,7 @@ import helmet from 'helmet';
 import { Server } from 'http';
 
 import { env } from '@/config/env-config';
+import { resolvers, typeDefs } from '@/graphql/schema';
 
 export default async function initializeMiddlewares(app: Application, httpServer: Server) {
   // Set the application to trust the reverse proxy
@@ -32,16 +33,8 @@ export default async function initializeMiddlewares(app: Application, httpServer
   // Apollo Server
   ////////////////////////////////////////
   const server = new ApolloServer({
-    typeDefs: `#graphql
-    type Query {
-      hello: String
-    }
-  `,
-    resolvers: {
-      Query: {
-        hello: () => 'Hello World!',
-      },
-    },
+    typeDefs,
+    resolvers,
     csrfPrevention: true,
     // https://www.apollographql.com/docs/apollo-server/migration#appropriate-400-status-codes
     status400ForVariableCoercionErrors: true,
