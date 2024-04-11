@@ -41,9 +41,7 @@
     "express-rate-limit": "^7.2.0",
     "graphql": "^16.8.1",
     "helmet": "^7.1.0",
-    "http-status-codes": "^2.3.0",
-    "pino": "^8.20.0",
-    "pino-http": "^9.0.0"
+    "http": "^0.0.1-security"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.2.1",
@@ -64,7 +62,6 @@
     "eslint-plugin-simple-import-sort": "^12.0.0",
     "husky": "^9.0.11",
     "inquirer": "^9.2.17",
-    "pino-pretty": "^11.0.0",
     "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
     "tsx": "^4.7.2",

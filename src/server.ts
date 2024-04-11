@@ -1,16 +1,14 @@
 import express, { Express } from 'express';
+import http from 'http';
 
 import initializeMiddlewares from '@/middleware';
 
 const app: Express = express();
+const httpServer = http.createServer(app);
 
 ////////////////////////////////////////
 // Middlewares
 ////////////////////////////////////////
-initializeMiddlewares(app);
+initializeMiddlewares(app, httpServer);
 
-app.get('/', (_req, res) => {
-  res.send('Hello World!');
-});
-
-export { app };
+export { app, httpServer };
