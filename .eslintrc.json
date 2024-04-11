@@ -1,0 +1,37 @@
+{
+  "env": {
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import-x/recommended",
+    "plugin:import-x/typescript",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["@typescript-eslint", "simple-import-sort", "prettier"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    // Imports
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "import-x/first": "error",
+    "import-x/newline-after-import": "error",
+    "import-x/no-duplicates": "error"
+  },
+  "settings": {
+    "import-x/parsers": {
+      "@typescript-eslint/parser": [".ts"]
+    },
+    "import-x/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    }
+  }
+}
