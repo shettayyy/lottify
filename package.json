@@ -4,7 +4,7 @@
   "description": " Explore, download, & discover LottieFiles",
   "main": "index.js",
   "scripts": {
-    "start": "tsx watch --clear-screen=false src/index.ts | pino-pretty",
+    "start": "tsx watch --clear-screen=false src/index.ts",
     "lint": "eslint --cache --fix --ext .ts,.tsx .",
     "format": "prettier --ignore-unknown --write",
     "type-check": "sh -c 'tsc --project tsconfig.json --pretty --noEmit'",
@@ -41,7 +41,8 @@
     "express-rate-limit": "^7.2.0",
     "graphql": "^16.8.1",
     "helmet": "^7.1.0",
-    "http": "^0.0.1-security"
+    "http": "^0.0.1-security",
+    "mongoose": "^8.3.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.2.1",

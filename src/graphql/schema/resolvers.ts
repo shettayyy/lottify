@@ -1,6 +1,8 @@
+import { BookQuery } from './book';
+
 const resolvers = {
   Query: {
-    hello: () => 'Hello World!',
+    ...BookQuery,
   },
 };
 

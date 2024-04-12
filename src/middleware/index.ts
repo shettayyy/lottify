@@ -6,6 +6,7 @@ import cors from 'cors';
 import { Application, json, urlencoded } from 'express';
 import helmet from 'helmet';
 import { Server } from 'http';
+import mongoose from 'mongoose';
 
 import { env } from '@/config/env-config';
 import { resolvers, typeDefs } from '@/graphql/schema';
@@ -48,11 +49,10 @@ export default async function initializeMiddlewares(app: Application, httpServer
     ],
   });
 
-  try {
-    await server.start();
-  } catch (error) {
-    console.error('Error starting Apollo Server', error);
-  }
+  await server.start();
+  await mongoose.connect(env.MONGODB_URI, {
+    autoIndex: false,
+  });
 
   app.use('/graphql', expressMiddleware(server));
 }
