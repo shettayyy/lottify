@@ -1,8 +1,8 @@
-import { BookQuery } from './book';
+import { LottieQuery } from './lotties';
 
 const resolvers = {
   Query: {
-    ...BookQuery,
+    ...LottieQuery,
   },
 };
 

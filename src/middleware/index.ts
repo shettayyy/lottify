@@ -9,7 +9,7 @@ import helmet from 'helmet';
 import { Server } from 'http';
 import mongoose from 'mongoose';
 
-import { env } from '@/config/env-config';
+import { env } from '@/config/env';
 import { resolvers, typeDefs } from '@/graphql/schema';
 
 export default async function initializeMiddlewares(app: Application, httpServer: Server) {

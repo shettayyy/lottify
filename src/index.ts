@@ -1,7 +1,7 @@
 import express, { Express } from 'express';
 import http from 'http';
 
-import { env } from '@/config/env-config';
+import { env } from '@/config/env';
 import initializeMiddlewares from '@/middleware';
 
 const app: Express = express();
