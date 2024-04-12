@@ -4,6 +4,7 @@ import { ApolloServerPluginCacheControl } from '@apollo/server/plugin/cacheContr
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import cors from 'cors';
 import { Application, json, urlencoded } from 'express';
+import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.mjs';
 import helmet from 'helmet';
 import { Server } from 'http';
 import mongoose from 'mongoose';
@@ -29,6 +30,7 @@ export default async function initializeMiddlewares(app: Application, httpServer
       origin: env.CORS_ORIGIN,
     }),
   );
+  app.use(graphqlUploadExpress());
 
   ////////////////////////////////////////
   // Apollo Server
