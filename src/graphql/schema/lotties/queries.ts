@@ -1,5 +1,5 @@
 import { lotties } from './db';
 
-export const LottieQuery = {
+export const LottieQueries = {
   lotties: () => lotties,
 };

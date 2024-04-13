@@ -1,13 +1,7 @@
-export const LottieTypes = `#graphql
-  type Lottie {
-    """The __name__ of the lottie animation"""
-    name: String!
-    """The __file size__ of the lottie animation"""
-    fileSize: Int!
-  }
+import { FileUpload } from 'graphql-upload/processRequest.mjs';
 
-  type Query {
-    """Get a list of lottie animations"""
-    lotties: [Lottie!]
-  }
-`;
+export type UploadLottieInput = {
+  input: {
+    file: Promise<FileUpload>;
+  };
+};

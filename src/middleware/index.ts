@@ -17,6 +17,7 @@ export default async function initializeMiddlewares(app: Application, httpServer
   app.set('trust proxy', true);
 
   // General middlewares
+  app.use(graphqlUploadExpress());
   app.use(json());
   app.use(urlencoded({ extended: true }));
   app.use(
@@ -30,7 +31,6 @@ export default async function initializeMiddlewares(app: Application, httpServer
       origin: env.CORS_ORIGIN,
     }),
   );
-  app.use(graphqlUploadExpress());
 
   ////////////////////////////////////////
   // Apollo Server

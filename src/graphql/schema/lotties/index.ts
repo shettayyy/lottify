@@ -1,2 +1,3 @@
-export { LottieQuery } from './query';
-export { LottieTypes } from './types';
+export { LottieTypes } from './gql-types';
+export { LottieMutations } from './mutations';
+export { LottieQueries } from './queries';
