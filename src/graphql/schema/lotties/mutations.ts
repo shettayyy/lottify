@@ -1,18 +1,19 @@
 import { GraphQLError } from 'graphql';
+// https://github.com/ai/nanoid
+import { nanoid } from 'nanoid';
 import { parse } from 'path';
-import { v4 } from 'uuid';
 
-import { cloudStorageBucketName, uploadFile } from '@/config/cloud-storage';
+import { getSignedUploadUrl } from '@/config/cloud-storage';
 
-import { UploadLottieInput } from './types';
+// import { saveLottieMetadata } from './service';
+import { UploadURLLottieInput } from './types';
 
 export const LottieMutations = {
-  uploadLottie: async (_: unknown, args: UploadLottieInput) => {
+  generateUploadLottieURL: async (_: unknown, args: UploadURLLottieInput) => {
     const {
-      input: { file },
+      input: { filename },
     } = args;
 
-    const { filename, createReadStream } = await file;
     const { ext, name } = parse(filename);
 
     // validate if the file is a lottie animation
@@ -24,18 +25,25 @@ export const LottieMutations = {
       });
     }
 
-    const stream = createReadStream();
+    // TODO: Validate further the file contents to ensure it's a valid lottie animation
+
     const formattedName = name.replace(/([^a-z0-9 ]+)/gi, '-').replace(' ', '_');
+    const animationID = nanoid();
+    const formattedNameWithExt = `${formattedName}.json`;
 
-    const params = {
-      Bucket: cloudStorageBucketName,
-      // Create a unique name for the file
-      Key: `${v4()}/${formattedName}.json`,
-      Body: stream,
-    };
+    // Specify the S3 key where the file will be uploaded
+    const key = `${animationID}/${formattedNameWithExt}`;
 
-    await uploadFile(params);
+    const res = await getSignedUploadUrl(key);
 
-    return formattedName;
+    if (!res) {
+      throw new GraphQLError('Failed to generate upload URL', {
+        extensions: {
+          code: 'UPLOAD_URL_GENERATION_FAILED',
+        },
+      });
+    }
+
+    return res;
   },
 };

@@ -4,7 +4,6 @@ import { LottieTypes } from './lotties';
 const typeDefs = `#graphql
   type Query
   type Mutation
-  scalar Upload
   ${LottieTypes}
 `;
 

@@ -1,7 +1,5 @@
-import { FileUpload } from 'graphql-upload/processRequest.mjs';
-
-export type UploadLottieInput = {
+export type UploadURLLottieInput = {
   input: {
-    file: Promise<FileUpload>;
+    filename: string;
   };
 };

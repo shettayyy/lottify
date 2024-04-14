@@ -1,9 +1,13 @@
 export const LottieTypes = `#graphql
   type Lottie {
-    """The __name__ of the lottie animation"""
-    name: String!
-    """The __file size__ of the lottie animation"""
-    fileSize: Int!
+    """The unique identifier of the lottie animation"""
+    id: String!,
+    """The name of the lottie animation"""
+    name: String!,
+    """The URL of the lottie animation"""
+    url: String!,
+    """The upload status of the lottie animation (UPLOADING, UPLOADED, FAILED)"""
+    uploadStatus: String!,
   }
 
   extend type Query {
@@ -11,13 +15,13 @@ export const LottieTypes = `#graphql
     lotties: [Lottie!]
   }
 
-  input UploadLottieInput {
-    """The __file__ to upload"""
-    file: Upload!
+  input UploadURLLottieInput {
+    """The __filename__ to upload"""
+    filename: String!
   }
 
   extend type Mutation {
     """Upload a lottie animation"""
-    uploadLottie(input: UploadLottieInput!): String!
+    generateUploadLottieURL(input: UploadURLLottieInput!): String!
   }
 `;

@@ -1,6 +1,5 @@
-import { PutObjectCommandInput, S3Client } from '@aws-sdk/client-s3';
-import { Upload } from '@aws-sdk/lib-storage';
-import { GraphQLError } from 'graphql';
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 import { env } from './env';
 
@@ -12,25 +11,15 @@ export const cloudStorageClient = new S3Client({
   },
 });
 
-export const uploadFile = async (params: PutObjectCommandInput) => {
-  const upload = new Upload({
-    client: cloudStorageClient,
-    params,
+// Generate a pre-signed URL for downloading a file from S3
+export const getSignedUploadUrl = async (key: string) => {
+  const command = new PutObjectCommand({
+    Bucket: env.S3_BUCKET_NAME,
+    Key: key,
+    ContentType: 'application/json',
   });
 
-  try {
-    upload.on('httpUploadProgress', progress => {
-      console.log(`Uploaded ${progress.loaded} of ${progress.total} bytes`);
-    });
-
-    await upload.done();
-  } catch (error) {
-    throw new GraphQLError(`Failed to upload file - ${(error as Error).message}`, {
-      extensions: {
-        code: 'UPLOAD_FAILED',
-      },
-    });
-  }
+  return getSignedUrl(cloudStorageClient, command, { expiresIn: 900 });
 };
 
 export const cloudStorageBucketName = env.S3_BUCKET_NAME;
