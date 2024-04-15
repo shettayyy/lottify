@@ -6,10 +6,10 @@ import { parse } from 'path';
 import { getSignedUploadUrl } from '@/config/cloud-storage';
 
 // import { saveLottieMetadata } from './service';
-import { UploadURLLottieInput } from './types';
+import { LottieUploadURLInput } from './types';
 
 export const LottieMutations = {
-  generateUploadLottieURL: async (_: unknown, args: UploadURLLottieInput) => {
+  generateUploadLottieURL: async (_: unknown, args: LottieUploadURLInput) => {
     const {
       input: { filename },
     } = args;
@@ -44,6 +44,10 @@ export const LottieMutations = {
       });
     }
 
-    return res;
+    return {
+      id: animationID,
+      name: formattedName,
+      url: res,
+    };
   },
 };

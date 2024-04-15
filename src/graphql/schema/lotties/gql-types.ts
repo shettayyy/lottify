@@ -10,18 +10,27 @@ export const LottieTypes = `#graphql
     uploadStatus: String!,
   }
 
+  type LottieSignedUploadURL {
+    """The unique identifier of the lottie animation"""
+    id: String!,
+    """The name of the lottie animation"""
+    name: String!,
+    """The URL of the lottie animation"""
+    url: String!,
+  }
+
   extend type Query {
     """Get a list of lottie animations"""
     lotties: [Lottie!]
   }
 
-  input UploadURLLottieInput {
+  input LottieUploadURLInput {
     """The __filename__ to upload"""
     filename: String!
   }
 
   extend type Mutation {
     """Upload a lottie animation"""
-    generateUploadLottieURL(input: UploadURLLottieInput!): String!
+    generateUploadLottieURL(input: LottieUploadURLInput!): LottieSignedUploadURL!
   }
 `;
