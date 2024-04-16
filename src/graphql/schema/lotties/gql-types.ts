@@ -76,9 +76,15 @@ export const LottieTypes = `#graphql
     search: String
   }
 
+  input GetLottieInput {
+    id: ID!
+  }
+
   extend type Query {
     """Get a list of lottie animations"""
     lotties(input: GetLottieParams!): GetLottieResponse!
+    """Get a lottie animation by id"""
+    lottie(input: GetLottieInput!): Lottie!
   }
 
   input LottieUploadURLInput {

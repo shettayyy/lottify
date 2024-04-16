@@ -128,6 +128,22 @@ export const getLotties = async ({ page, limit, search }: GetParams) => {
   }
 };
 
+// Function to fetch a single lottie by ID from MongoDB
+export const getLottieById = async (lottieId: ObjectId) => {
+  try {
+    // Fetch the lottie by ID
+    const lottie = await LottieModel.findById(lottieId);
+
+    if (!lottie) {
+      throw new Error(`Lottie with ID ${lottieId} not found`);
+    }
+
+    return lottie;
+  } catch (error) {
+    throw new Error(`Failed to fetch lottie with ID ${lottieId}: ${(error as Error).message}`);
+  }
+};
+
 // Function to fetch top 1 lottie from LottieModel
 // Make 400 copies of it with new _id
 export const cloneLotties = async () => {
