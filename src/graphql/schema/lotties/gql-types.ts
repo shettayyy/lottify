@@ -112,5 +112,7 @@ export const LottieTypes = `#graphql
     cloneLotties: String!
     """Delete cloned lotties"""
     deleteClonedLotties: String!
+    """Clear all lotties"""
+    clearLotties: String!
   }
 `;

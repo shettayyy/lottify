@@ -177,3 +177,14 @@ export const deleteAllClonedLotties = async () => {
     throw new Error('Failed to delete lotties');
   }
 };
+
+// Clear all lotties from the LottieModel
+export const clearAllLotties = async () => {
+  try {
+    await LottieModel.deleteMany({});
+
+    return 'All lotties cleared successfully';
+  } catch (error) {
+    throw new Error('Failed to clear lotties');
+  }
+};
