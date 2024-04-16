@@ -116,9 +116,11 @@ export const LottieMutations = {
     const key = `${animationId}/${formattedNameWithExt}`;
 
     const res = await getSignedUploadUrl(key);
+    const url = res.split('?')[0];
+
     const finalResult = {
       animationId,
-      url: res,
+      url,
       uploadStatus: UploadStatus.UPLOADING,
       filename: formattedName,
       filesize,
