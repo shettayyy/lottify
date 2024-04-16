@@ -7,7 +7,15 @@ import { getLottieById, getLotties } from './db';
 
 export const LottieQueries = {
   lotties: async (_: unknown, args: { input: GetParams }) => {
-    const { page, limit, search = '' } = args.input;
+    const {
+      page = 1,
+      limit = 20,
+      search = '',
+    } = args.input || {
+      page: 1,
+      limit: 20,
+      search: '',
+    };
 
     try {
       // Call the getLotties function to fetch lotties

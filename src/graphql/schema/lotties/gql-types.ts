@@ -69,9 +69,9 @@ export const LottieTypes = `#graphql
 
   input GetLottieParams {
     """The page number of the lottie animations"""
-    page: Int!
+    page: Int
     """The limit of the lottie animations"""
-    limit: Int!
+    limit: Int
     """The search query for the lottie animations"""
     search: String
   }
@@ -82,7 +82,7 @@ export const LottieTypes = `#graphql
 
   extend type Query {
     """Get a list of lottie animations"""
-    lotties(input: GetLottieParams!): GetLottieResponse!
+    lotties(input: GetLottieParams): GetLottieResponse!
     """Get a lottie animation by id"""
     lottie(input: GetLottieInput!): Lottie!
   }
