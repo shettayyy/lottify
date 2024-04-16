@@ -6,12 +6,12 @@ import { Lottie } from '@/common/types/lottie';
 import { getLottieById, getLotties } from './db';
 
 export const LottieQueries = {
-  lotties: async (_: unknown, args: { input: GetParams }) => {
+  lotties: async (_: unknown, args: { input?: Partial<GetParams> }) => {
     const {
       page = 1,
       limit = 20,
       search = '',
-    } = args.input || {
+    } = args?.input || {
       page: 1,
       limit: 20,
       search: '',
