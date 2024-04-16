@@ -39,9 +39,46 @@ export const LottieTypes = `#graphql
     metadata: LottieMetadata
   }
 
+  type Pagination {
+    """The current page of the lottie animations result"""
+    currentPage: Int
+    """Next page number"""
+    nextPage: Int
+    """Previous page number"""
+    prevPage: Int
+    """First page number"""
+    firstPage: Int
+    """Last page number"""
+    lastPage: Int
+    """The total items in the database"""
+    total: Int
+  }
+  
+
+  type Metadata {
+    """The pagination metadata of the lottie animations result"""
+    pagination: Pagination!
+  }
+
+  type GetLottieResponse {
+    """Get a list of lottie animations"""
+    result: [Lottie!]
+    """The metadata of the lottie animations result"""
+    metadata: Metadata!
+  }
+
+  input GetLottieParams {
+    """The page number of the lottie animations"""
+    page: Int!
+    """The limit of the lottie animations"""
+    limit: Int!
+    """The search query for the lottie animations"""
+    search: String
+  }
+
   extend type Query {
     """Get a list of lottie animations"""
-    lotties: [Lottie!]
+    lotties(input: GetLottieParams!): GetLottieResponse!
   }
 
   input LottieUploadURLInput {

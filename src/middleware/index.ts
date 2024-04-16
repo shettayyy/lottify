@@ -50,9 +50,7 @@ export default async function initializeMiddlewares(app: Application, httpServer
   });
 
   await server.start();
-  await mongoose.connect(env.MONGODB_URI, {
-    autoIndex: false,
-  });
+  await mongoose.connect(env.MONGODB_URI);
 
   app.use('/graphql', expressMiddleware(server));
 }

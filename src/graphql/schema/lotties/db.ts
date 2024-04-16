@@ -1,29 +1,30 @@
 import mongoose, { ObjectId } from 'mongoose';
 
+import { GetParams } from '@/common/types/http';
 import { Lottie, LottieMetadata } from '@/common/types/lottie';
 import { UploadStatus } from '@/common/types/upload';
 
 const lottieSchema = new mongoose.Schema({
   animationId: String,
-  filename: String,
+  filename: { type: String, text: true },
   filesize: Number,
   url: String,
   uploadStatus: String, // or whatever type you want to use for the upload status
   metadata: {
-    author: String,
+    author: { type: String, text: true },
     generator: String,
-    description: String,
+    description: { type: String, text: true },
     width: Number,
     height: Number,
     frameRate: Number,
     layerCount: Number,
     totalFrames: Number,
     duration: Number,
-    userFilename: String,
+    userFilename: { type: String, text: true },
   },
 });
 
-const LottieModel = mongoose.model('lottie', lottieSchema);
+export const LottieModel = mongoose.model('lottie', lottieSchema);
 
 // Function to insert lotties data into MongoDB
 export const createLottie = async (lottie: Omit<Lottie, '_id'>) => {
@@ -82,6 +83,48 @@ export const updateLottieMetadata = async (
     return `Lottie with ID ${lottieId} metadata updated successfully`;
   } catch (error) {
     throw new Error(`Failed to update lottie metadata: ${(error as Error).message}`);
+  }
+};
+
+// Function to fetch paginated lotties data from MongoDB
+export const getLotties = async ({ page, limit, search }: GetParams) => {
+  try {
+    // Check if search parameter is empty or null
+    const isSearchEmpty = !search || search.trim() === '';
+
+    // Define the query based on whether search is empty
+    const query = isSearchEmpty ? {} : { $text: { $search: search } };
+
+    // Fetch lotties based on the query
+    const lotties = await LottieModel.find(query)
+      .sort(isSearchEmpty ? {} : { score: { $meta: 'textScore' } }) // Sort by relevance score if search is not empty
+      .skip((page - 1) * limit)
+      .limit(limit);
+
+    // Count the total number of lotties based on the query
+    const totalLotties = await LottieModel.countDocuments(query);
+
+    // Calculate the total number of pages
+    const totalPages = Math.ceil(totalLotties / limit);
+
+    // Determine pagination info
+    const pagination = {
+      currentPage: page,
+      nextPage: page < totalPages ? page + 1 : null,
+      prevPage: page > 1 ? page - 1 : null,
+      firstPage: 1,
+      lastPage: totalPages,
+      total: totalLotties,
+    };
+
+    return {
+      result: lotties,
+      metadata: {
+        pagination,
+      },
+    };
+  } catch (error) {
+    throw new Error((error as Error).message);
   }
 };
 
