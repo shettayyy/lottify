@@ -6,7 +6,7 @@ import { UploadStatus } from '@/common/types/upload';
 import { generateUniqueID } from '@/common/utils/id-generator';
 import { getFileStreamFromCloud, getSignedUploadUrl } from '@/config/cloud-storage';
 
-import { createLottie, updateLottieMetadata } from './db';
+import { cloneLotties, createLottie, deleteAllClonedLotties, updateLottieMetadata } from './db';
 import { LottieMetadataInput, LottieUploadURLInput } from './types';
 
 const startMetadataUpdate = async (args: LottieMetadataInput) => {
@@ -144,5 +144,17 @@ export const LottieMutations = {
     startMetadataUpdate(args);
 
     return 'Lottie metadata is being saved...';
+  },
+
+  cloneLotties: async () => {
+    await cloneLotties();
+
+    return 'Lotties have been cloned!';
+  },
+
+  deleteClonedLotties: async () => {
+    await deleteAllClonedLotties();
+
+    return 'Cloned lotties have been deleted!';
   },
 };

@@ -65,5 +65,9 @@ export const LottieTypes = `#graphql
     generateUploadLottieURL(input: LottieUploadURLInput!): Lottie!
     """Save the metadata of a lottie animation"""
     saveLottieMetadata(input: LottieMetadataInput!): String!
+    """Clone lotties for testing"""
+    cloneLotties: String!
+    """Delete cloned lotties"""
+    deleteClonedLotties: String!
   }
 `;

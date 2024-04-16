@@ -84,3 +84,37 @@ export const updateLottieMetadata = async (
     throw new Error(`Failed to update lottie metadata: ${(error as Error).message}`);
   }
 };
+
+// Function to fetch top 1 lottie from LottieModel
+// Make 400 copies of it with new _id
+export const cloneLotties = async () => {
+  try {
+    // Fetch the top 1 lottie from the LottieModel
+    const topLottie = await LottieModel.findOne().sort({ _id: 1 });
+
+    // Create 10 copies of the top lottie but delete the _id field
+    const clonedLotties = Array.from({ length: 400 }, () => ({ ...topLottie?.toObject(), _id: undefined }));
+
+    // Insert the cloned lotties into the LottieModel
+    await LottieModel.insertMany(clonedLotties);
+
+    return 'Lotties cloned successfully';
+  } catch (error) {
+    throw new Error(`Failed to clone lotties: ${(error as Error).message}`);
+  }
+};
+
+// Function to delete all lotties from LottieModel except the top 4
+export const deleteAllClonedLotties = async () => {
+  try {
+    // Fetch the top 4 lotties from the LottieModel
+    const topLotties = await LottieModel.find().limit(4);
+
+    // Delete all lotties except the top 4
+    await LottieModel.deleteMany({ _id: { $nin: topLotties.map(lottie => lottie._id) } });
+
+    return 'All lotties deleted successfully';
+  } catch (error) {
+    throw new Error('Failed to delete lotties');
+  }
+};
