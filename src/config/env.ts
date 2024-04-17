@@ -1,6 +1,6 @@
 import 'dotenv/config';
 
-import { cleanEnv, str } from 'envalid';
+import { cleanEnv, host, port, str } from 'envalid';
 
 export const env = cleanEnv(process.env, {
   NODE_ENV: str({ choices: ['development', 'production'] }),
@@ -10,4 +10,6 @@ export const env = cleanEnv(process.env, {
   AWS_SECRET_ACCESS_KEY: str(),
   AWS_REGION: str(),
   S3_BUCKET_NAME: str(),
+  HOST: host(),
+  PORT: port(),
 });

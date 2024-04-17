@@ -27,7 +27,7 @@ export default async function initializeMiddlewares(app: Application, httpServer
   app.use(
     cors({
       // allow any origin in development
-      origin: env.isProduction ? env.CORS_ORIGIN : '*',
+      origin: '*',
     }),
   );
 
