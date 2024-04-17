@@ -108,7 +108,7 @@ export const LottieMutations = {
       });
     }
 
-    const formattedName = name.replace(/([^a-z0-9 ]+)/gi, '-').replace(' ', '_');
+    const formattedName = name.replace(/([^a-z0-9]+)/gi, '_');
     const animationId = generateUniqueID();
     const formattedNameWithExt = `${formattedName}.json`;
 
@@ -116,11 +116,10 @@ export const LottieMutations = {
     const key = `${animationId}/${formattedNameWithExt}`;
 
     const res = await getSignedUploadUrl(key);
-    const url = res.split('?')[0];
 
     const finalResult = {
       animationId,
-      url,
+      url: res,
       uploadStatus: UploadStatus.UPLOADING,
       filename: formattedName,
       filesize,
