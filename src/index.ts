@@ -11,9 +11,9 @@ const startServer = async () => {
   try {
     await initializeMiddlewares(app, httpServer);
 
-    const server = httpServer.listen(env.PORT, () => {
-      const { NODE_ENV, HOST, PORT } = env;
-      console.info(`Server (${NODE_ENV}) running on port http://${HOST}:${PORT}`);
+    const server = httpServer.listen(3000, () => {
+      const { NODE_ENV } = env;
+      console.info(`Server (${NODE_ENV}) running on port 3000`);
     });
 
     // Graceful shutdown
