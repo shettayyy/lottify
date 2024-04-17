@@ -89,15 +89,23 @@ export const updateLottieMetadata = async (
 // Function to fetch paginated lotties data from MongoDB
 export const getLotties = async ({ page, limit, search }: GetParams) => {
   try {
-    // Check if search parameter is empty or null
-    const isSearchEmpty = !search || search.trim() === '';
+    // Define the regex pattern for the search term
+    const regex = new RegExp(search, 'i'); // 'i' flag for case-insensitive search
 
-    // Define the query based on whether search is empty
-    const query = isSearchEmpty ? {} : { $text: { $search: search } };
+    // Define the query based on the search term
+    const query = search
+      ? {
+          $or: [
+            { filename: { $regex: regex } },
+            { 'metadata.author': { $regex: regex } },
+            { 'metadata.description': { $regex: regex } },
+            { 'metadata.userFilename': { $regex: regex } },
+          ],
+        }
+      : {};
 
     // Fetch lotties based on the query
     const lotties = await LottieModel.find(query)
-      .sort(isSearchEmpty ? {} : { score: { $meta: 'textScore' } }) // Sort by relevance score if search is not empty
       .skip((page - 1) * limit)
       .limit(limit);
 
