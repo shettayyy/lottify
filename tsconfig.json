@@ -13,6 +13,15 @@
     "types": ["node"],
     "strict": true
   },
+  "tsc-alias": {
+    "resolveFullPaths": true,
+    "verbose": false,
+    "replacers": {
+      "base-url": {
+        "enabled": false
+      }
+    }
+  },
   "extends": [],
   "exclude": ["node_modules"],
   "include": ["src/**/*.ts", "src/**/*.d.ts"]
