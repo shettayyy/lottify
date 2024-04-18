@@ -111,7 +111,7 @@ export const getLotties = async ({ page, limit, search }: GetParams) => {
 
     // Fetch lotties based on the query
     const lotties = await LottieModel.find(query)
-      .sort({ createdAt: -1 })
+      .sort({ createdAt: -1, _id: -1 })
       .skip((page - 1) * limit)
       .limit(limit);
 
