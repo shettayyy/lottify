@@ -165,10 +165,19 @@ export const cloneLotties = async () => {
     // Fetch the top n lotties from the LottieModel
     const topLotties = await LottieModel.find().sort({ _id: 1 }).limit(4);
 
-    // Create copies for each top lottie but delete the _id field
-    const clonedLotties = topLotties.flatMap(lottie =>
-      Array.from({ length: 100 }, () => ({ ...lottie.toObject(), _id: undefined })),
-    );
+    // Create an array of [topLottie[1], topLottie[2], topLottie[3], topLottie[4], topLottie[1], topLottie[2], topLottie[3], topLottie[4], ...] length 100
+    // Make sure to clone the lotties with new _id
+    const clonedLotties = Array.from({ length: 10 }, (_, index) => {
+      const selectedIndex = index < 4 ? index : index % 4;
+      const topLottie = topLotties[selectedIndex];
+      const clonedLottie = {
+        ...topLottie.toObject(),
+        _id: new mongoose.Types.ObjectId(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      return clonedLottie;
+    });
 
     // Insert the cloned lotties into the LottieModel
     await LottieModel.insertMany(clonedLotties);
