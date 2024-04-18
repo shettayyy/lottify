@@ -159,7 +159,7 @@ export const getLottieById = async (lottieId: ObjectId) => {
 };
 
 // Function to fetch top 1 lottie from LottieModel
-// Make 400 copies of it with new _id
+// Make 10 copies of it with new _id
 export const cloneLotties = async () => {
   try {
     // Fetch the top n lotties from the LottieModel
