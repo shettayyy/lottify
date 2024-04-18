@@ -167,7 +167,7 @@ export const cloneLotties = async () => {
 
     // Create copies for each top lottie but delete the _id field
     const clonedLotties = topLotties.flatMap(lottie =>
-      Array.from({ length: 50 }, () => ({ ...lottie.toObject(), _id: undefined })),
+      Array.from({ length: 100 }, () => ({ ...lottie.toObject(), _id: undefined })),
     );
 
     // Insert the cloned lotties into the LottieModel
