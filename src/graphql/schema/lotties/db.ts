@@ -4,25 +4,30 @@ import { GetParams } from '@/common/types/http';
 import { Lottie, LottieMetadata } from '@/common/types/lottie';
 import { UploadStatus } from '@/common/types/upload';
 
-const lottieSchema = new mongoose.Schema({
-  animationId: String,
-  filename: { type: String, text: true },
-  filesize: Number,
-  url: String,
-  uploadStatus: String, // or whatever type you want to use for the upload status
-  metadata: {
-    author: { type: String, text: true },
-    generator: String,
-    description: { type: String, text: true },
-    width: Number,
-    height: Number,
-    frameRate: Number,
-    layerCount: Number,
-    totalFrames: Number,
-    duration: Number,
-    userFilename: { type: String, text: true },
+const lottieSchema = new mongoose.Schema(
+  {
+    animationId: String,
+    filename: { type: String, text: true },
+    filesize: Number,
+    url: String,
+    uploadStatus: String, // or whatever type you want to use for the upload status
+    metadata: {
+      author: { type: String, text: true },
+      generator: String,
+      description: { type: String, text: true },
+      width: Number,
+      height: Number,
+      frameRate: Number,
+      layerCount: Number,
+      totalFrames: Number,
+      duration: Number,
+      userFilename: { type: String, text: true },
+    },
   },
-});
+  {
+    timestamps: true,
+  },
+);
 
 export const LottieModel = mongoose.model('lottie', lottieSchema);
 
@@ -106,6 +111,7 @@ export const getLotties = async ({ page, limit, search }: GetParams) => {
 
     // Fetch lotties based on the query
     const lotties = await LottieModel.find(query)
+      .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(limit);
 
@@ -156,11 +162,13 @@ export const getLottieById = async (lottieId: ObjectId) => {
 // Make 400 copies of it with new _id
 export const cloneLotties = async () => {
   try {
-    // Fetch the top 1 lottie from the LottieModel
-    const topLottie = await LottieModel.findOne().sort({ _id: 1 });
+    // Fetch the top n lotties from the LottieModel
+    const topLotties = await LottieModel.find().sort({ _id: 1 }).limit(4);
 
-    // Create 10 copies of the top lottie but delete the _id field
-    const clonedLotties = Array.from({ length: 400 }, () => ({ ...topLottie?.toObject(), _id: undefined }));
+    // Create copies for each top lottie but delete the _id field
+    const clonedLotties = topLotties.flatMap(lottie =>
+      Array.from({ length: 50 }, () => ({ ...lottie.toObject(), _id: undefined })),
+    );
 
     // Insert the cloned lotties into the LottieModel
     await LottieModel.insertMany(clonedLotties);
