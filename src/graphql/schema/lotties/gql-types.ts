@@ -1,42 +1,46 @@
 export const LottieTypes = `#graphql
   type LottieMetadata {
     """The author of the lottie animation"""
-    author: String,
+    author: String
     """The description of the lottie animation"""
-    description: String,
+    description: String
     """The generator which generated the lottie animation"""
-    generator: String,
+    generator: String
     """The width of the lottie animation"""
-    width: Int,
+    width: Int
     """The height of the lottie animation"""
-    height: Int,
+    height: Int
     """The frame rate of the lottie animation"""
-    frameRate: Int,
+    frameRate: Int
     """The number of layers in the lottie animation"""
-    layerCount: Int,
+    layerCount: Int
     """The number of frames in the lottie animation"""
-    totalFrames: Int,
+    totalFrames: Int
     """The duration of the lottie animation in seconds"""
-    duration: Int,
+    duration: Int
     """The user allotted filename"""
-    userFilename: String,
+    userFilename: String
   }
   
   type Lottie {
     """The unique mongodb identifier of the lottie animation"""
-    _id: ID,
+    _id: ID
     """The unique identifier of the lottie animation"""
-    animationId: String!,
+    animationId: String!
     """The name of the lottie animation"""
-    filename: String!,
+    filename: String!
     """The filesize of the lottie animation"""
-    filesize: Int!,
+    filesize: Int!
     """The URL of the lottie animation"""
-    url: String!,
+    url: String!
     """The upload status of the lottie animation (UPLOADING, UPLOADED, FAILED)"""
-    uploadStatus: String!,
+    uploadStatus: String!
     """Lottie user metadata"""
     metadata: LottieMetadata
+    """Created at timestamp"""
+    createdAt: String
+    """Updated at timestamp"""
+    updatedAt: String
   }
 
   type Pagination {

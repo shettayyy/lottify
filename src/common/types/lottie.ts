@@ -45,4 +45,6 @@ export type Lottie = {
   filesize: number;
   uploadStatus: UploadStatus;
   metadata: LottieMetadata;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
