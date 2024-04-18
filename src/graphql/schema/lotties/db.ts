@@ -165,8 +165,6 @@ export const cloneLotties = async () => {
     // Fetch the top n lotties from the LottieModel
     const topLotties = await LottieModel.find().sort({ _id: 1 }).limit(4);
 
-    // Create an array of [topLottie[1], topLottie[2], topLottie[3], topLottie[4], topLottie[1], topLottie[2], topLottie[3], topLottie[4], ...] length 100
-    // Make sure to clone the lotties with new _id
     const clonedLotties = Array.from({ length: 10 }, (_, index) => {
       const selectedIndex = index < 4 ? index : index % 4;
       const topLottie = topLotties[selectedIndex];
