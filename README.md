@@ -162,5 +162,3 @@ The project is deployed on [Railway](railway.app). The deployment is done automa
 ## Contributor
 
 - [Shettayyy](https://github.com/shettayyy)
-
-Made with ❤️ for LottieFiles
